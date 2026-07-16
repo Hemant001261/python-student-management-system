@@ -1,0 +1,28 @@
+accounts = {}
+
+print("===== BANK MANAGEMENT SYSTEM =====")
+
+while True:
+    print("\n1. Create Account")
+    print("2. Exit")
+
+    choice = input("Enter Choice: ")
+
+    if choice == "1":
+        name = input("Enter Name: ")
+        account = input("Enter Account Number: ")
+        balance = float(input("Enter Opening Balance: "))
+
+        accounts[account] = {
+            "name": name,
+            "balance": balance
+        }
+
+        print("Account Created Successfully!")
+
+    elif choice == "2":
+        print("Thank You")
+        break
+
+    else:
+        print("Invalid Choice")
