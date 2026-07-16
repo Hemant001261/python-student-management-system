@@ -1,28 +1,77 @@
 accounts = {}
 
-print("===== BANK MANAGEMENT SYSTEM =====")
-
 while True:
-    print("\n1. Create Account")
-    print("2. Exit")
+    print("\n========== BANK MANAGEMENT SYSTEM ==========")
+    print("1. Create Account")
+    print("2. Deposit Money")
+    print("3. Withdraw Money")
+    print("4. Check Balance")
+    print("5. View All Accounts")
+    print("6. Exit")
 
-    choice = input("Enter Choice: ")
+    choice = input("Enter your choice: ")
 
     if choice == "1":
-        name = input("Enter Name: ")
-        account = input("Enter Account Number: ")
-        balance = float(input("Enter Opening Balance: "))
+        acc_no = input("Enter Account Number: ")
 
-        accounts[account] = {
-            "name": name,
-            "balance": balance
-        }
-
-        print("Account Created Successfully!")
+        if acc_no in accounts:
+            print("Account already exists!")
+        else:
+            name = input("Enter Account Holder Name: ")
+            balance = float(input("Enter Opening Balance: "))
+            accounts[acc_no] = {
+                "name": name,
+                "balance": balance
+            }
+            print("Account Created Successfully!")
 
     elif choice == "2":
-        print("Thank You")
+        acc_no = input("Enter Account Number: ")
+
+        if acc_no in accounts:
+            amount = float(input("Enter Deposit Amount: "))
+            accounts[acc_no]["balance"] += amount
+            print("Deposit Successful!")
+        else:
+            print(" Account Not Found!")
+
+    elif choice == "3":
+        acc_no = input("Enter Account Number: ")
+
+        if acc_no in accounts:
+            amount = float(input("Enter Withdraw Amount: "))
+
+            if amount <= accounts[acc_no]["balance"]:
+                accounts[acc_no]["balance"] -= amount
+                print(" Withdrawal Successful!")
+            else:
+                print("Insufficient Balance!")
+        else:
+            print(" Account Not Found!")
+
+    elif choice == "4":
+        acc_no = input("Enter Account Number: ")
+
+        if acc_no in accounts:
+            print("\nAccount Holder :", accounts[acc_no]["name"])
+            print("Balance        :", accounts[acc_no]["balance"])
+        else:
+            print(" Account Not Found!")
+
+    elif choice == "5":
+        if len(accounts) == 0:
+            print("No Accounts Found!")
+        else:
+            print("\n------ ALL ACCOUNTS ------")
+            for acc_no, data in accounts.items():
+                print(f"Account No : {acc_no}")
+                print(f"Name       : {data['name']}")
+                print(f"Balance    : ₹{data['balance']}")
+                print("--------------------------")
+
+    elif choice == "6":
+        print("Thank You!")
         break
 
     else:
-        print("Invalid Choice")
+        print(" Invalid Choice")
