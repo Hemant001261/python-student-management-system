@@ -58,3 +58,55 @@ while True:
             print("✅ Deposit Successful")
         else:
             print("❌ Invalid Account or PIN")e")
+
+    elif choice == "3":
+        account = input("Account Number: ")
+        pin = input("PIN: ")
+
+        cursor.execute(
+            "SELECT balance FROM accounts WHERE account=? AND pin=?",
+            (account, pin)
+        )
+        data = cursor.fetchone()
+
+        if data:
+            amount = float(input("Withdraw Amount: "))
+            if data[0] >= amount:
+                new_balance = data[0] - amount
+
+                cursor.execute(
+                    "UPDATE accounts SET balance=? WHERE account=?",
+                    (new_balance, account)
+                )
+                conn.commit()
+                print("✅ Withdrawal Successful")
+            else:
+                print("❌ Insufficient Balance")
+        else:
+            print("❌ Invalid Account or PIN")
+
+    elif choice == "4":
+        account = input("Account Number: ")
+        pin = input("PIN: ")
+
+        cursor.execute(
+            "SELECT name, balance FROM accounts WHERE account=? AND pin=?",
+            (account, pin)
+        )
+        data = cursor.fetchone()
+
+        if data:
+            print("\n===== ACCOUNT DETAILS =====")
+            print("Name :", data[0])
+            print("Balance :", data[1])
+        else:
+            print("❌ Invalid Account or PIN")
+
+    elif choice == "5":
+        print("Thank you for using Bank Management System.")
+        conn.close()
+        break
+
+    else:
+        print("❌ Invalid Choice")
+
