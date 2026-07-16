@@ -1,0 +1,11 @@
+import os
+import shutil
+
+source = input("Enter folder path: ")
+
+for file in os.listdir(source):
+    if file.endswith(".jpg") or file.endswith(".png"):
+        os.makedirs(source + "/Images", exist_ok=True)
+        shutil.move(source+"/"+file, source+"/Images/"+file)
+
+print("Files Organized Successfully!")
